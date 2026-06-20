@@ -26,7 +26,7 @@ export function HomePage() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen gap-6">
-            <h1 className="text-4xl font-bold">Portfolio</h1>
+            <h1 className="text-4xl font-bold">JDT-17 Bagus Tri</h1>
             <p className="text-muted-foreground">Pilih halaman yang ingin dikunjungi</p>
 
             <div className="flex flex-col gap-3 w-full max-w-xs">
