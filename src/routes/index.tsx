@@ -3,7 +3,8 @@ import { ROUTES } from "@/constants/routes";
 import { HomePage } from "@/pages/HomePage";
 import {CVPage} from "@/pages/CVPage.tsx";
 import {MoviesPage} from "@/pages/MoviesPage.tsx";
-import {TodosPage} from "@/pages/TodosPage.tsx";
+import TodosPage from "@/pages/TodosPage.tsx";
+import CreateTodoPage from "@/pages/CreateTodoPage.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -22,4 +23,8 @@ export const router = createBrowserRouter([
         path: ROUTES.TODOS,
         element: <TodosPage />,
     },
+    {
+        path: ROUTES.TODOS_CREATE,
+        element: <CreateTodoPage />
+    }
 ]);

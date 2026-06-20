@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { FileTextIcon, CheckSquareIcon, FilmSlateIcon } from '@phosphor-icons/react'
 import { ROUTES } from '@/constants/routes'
