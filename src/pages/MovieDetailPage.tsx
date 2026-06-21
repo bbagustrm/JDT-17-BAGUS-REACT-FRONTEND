@@ -60,7 +60,7 @@ export const MovieDetailPage = () => {
         <div className="min-h-screen bg-background">
 
             {/* ── Hero ── */}
-            <div className="relative w-full h-[60vh] bg-muted overflow-hidden">
+            <div className="relative w-full h-[40vh] md:h-[60vh] bg-muted overflow-hidden">
                 {isLoading ? (
                     <Skeleton className="w-full h-full rounded-none" />
                 ) : backdropUrl ? (
@@ -213,7 +213,7 @@ export const MovieDetailPage = () => {
             <Dialog open={trailerOpen} onOpenChange={setTrailerOpen}>
                   <DialogTrigger>
                   </DialogTrigger>
-                <DialogContent className="sm:max-w-[50vw] w-[50vw] p-0 overflow-hidden bg-black border-border">
+                <DialogContent className="sm:max-w-[90vw] w-[50vw] p-0 overflow-hidden bg-black border-border">
                     <DialogTitle className="sr-only">
                         {detail?.title} — Trailer
                     </DialogTitle>
