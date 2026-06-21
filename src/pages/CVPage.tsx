@@ -7,12 +7,11 @@ import {Separator} from '@/components/ui/separator';
 import {
     ArrowLeftIcon,
     CircleIcon,
-    DownloadIcon,
     EnvelopeIcon,
     GithubLogoIcon,
     LinkedinLogoIcon
 } from '@phosphor-icons/react';
-import profilePhoto from '@/assets/profile.jpg';
+import profilePhoto from '@/assets/profile.webp';
 
 
 const languages = [
@@ -25,61 +24,142 @@ const skills = [
         id: 'frontend',
         label: 'Frontend',
         items: [
-            {name: 'Git', note: 'Enterprise workflow, rebase'},
-            {name: 'Nginx', note: 'Reverse proxy, SSL'},
-            {name: 'Cloudflare', note: 'DNS, WAF, R2'},
-            {name: 'Obsidian', note: 'PKM, linked notes'},
-            {name: 'Figma', note: 'UI design, prototyping'},
+            {
+                name: 'React',
+                note: 'Digunakan untuk membangun aplikasi web modern dengan pendekatan component-based architecture dan integrasi REST API.',
+            },
+            {
+                name: 'Next.js',
+                note: 'Membangun website company profile, dashboard, dan e-commerce dengan dukungan SSR, routing, dan optimasi SEO.',
+            },
+            {
+                name: 'Svelte',
+                note: 'Mempelajari framework frontend modern dengan pendekatan reactive programming dan performa yang ringan.',
+            },
+            {
+                name: 'TypeScript',
+                note: 'Digunakan untuk meningkatkan maintainability dan keamanan kode pada project React maupun Next.js.',
+            },
+            {
+                name: 'Tailwind CSS',
+                note: 'Framework CSS utama yang digunakan untuk mempercepat pengembangan UI dan menjaga konsistensi desain.',
+            },
+            {
+                name: 'Figma',
+                note: 'Merancang wireframe, prototype, design system, dan antarmuka pengguna untuk berbagai kebutuhan aplikasi web.',
+            },
         ],
     },
     {
         id: 'backend',
         label: 'Backend',
         items: [
-            {name: 'Git', note: 'Enterprise workflow, rebase'},
-            {name: 'Nginx', note: 'Reverse proxy, SSL'},
-            {name: 'Cloudflare', note: 'DNS, WAF, R2'},
-            {name: 'Obsidian', note: 'PKM, linked notes'},
-            {name: 'Figma', note: 'UI design, prototyping'},
+            {
+                name: 'Laravel',
+                note: 'Mengembangkan sistem absensi perusahaan, fitur Daily Activity Progress, serta integrasi API internal.',
+            },
+            {
+                name: 'NestJS',
+                note: 'Digunakan sebagai backend pada project fullstack dengan implementasi REST API dan autentikasi pengguna.',
+            },
+            {
+                name: 'Spring Boot',
+                note: 'Mempelajari pengembangan REST API menggunakan ekosistem Java serta penerapan arsitektur backend modern.',
+            },
+            {
+                name: 'Java',
+                note: 'Memahami konsep OOP, collection, multithreading dasar, dan pengembangan aplikasi menggunakan Spring Boot.',
+            },
+            {
+                name: 'MySQL',
+                note: 'Database utama yang digunakan pada berbagai project Laravel dan aplikasi manajemen data.',
+            },
+            {
+                name: 'PostgreSQL',
+                note: 'Digunakan pada aplikasi fullstack untuk menangani data transaksi dan relasi kompleks.',
+            },
+            {
+                name: 'MongoDB',
+                note: 'Memahami konsep document database dan penggunaannya pada aplikasi berbasis NoSQL.',
+            },
+            {
+                name: 'Redis',
+                note: 'Digunakan sebagai cache dan penyimpanan data sementara untuk meningkatkan performa aplikasi.',
+            },
+            {
+                name: 'Supabase',
+                note: 'Digunakan sebagai backend-as-a-service untuk autentikasi, database, dan manajemen konten.',
+            },
         ],
     },
     {
         id: 'tools',
         label: 'Tools',
         items: [
-            {name: 'Git', note: 'Enterprise workflow, rebase'},
-            {name: 'Nginx', note: 'Reverse proxy, SSL'},
-            {name: 'Cloudflare', note: 'DNS, WAF, R2'},
-            {name: 'Obsidian', note: 'PKM, linked notes'},
-            {name: 'Figma', note: 'UI design, prototyping'},
+            {
+                name: 'Git & GitHub',
+                note: 'Terbiasa menggunakan branching, pull request, code review, dan workflow kolaborasi tim.',
+            },
+            {
+                name: 'Nginx',
+                note: 'Melakukan deployment aplikasi pada VPS dengan konfigurasi reverse proxy, domain, dan SSL.',
+            },
+            {
+                name: 'Cloudflare',
+                note: 'Mengelola DNS, SSL, keamanan website, serta optimasi performa melalui CDN dan caching.',
+            },
+            {
+                name: 'Obsidian',
+                note: 'Digunakan untuk dokumentasi pembelajaran, knowledge management, dan pencatatan project.',
+            },
         ],
     },
+    {
+        id: 'design',
+        label: 'Design',
+        items: [
+            {
+                name: 'Figma',
+                note: 'Merancang wireframe, prototype, user flow, dan design system untuk aplikasi web maupun mobile. Berpengalaman membuat UI/UX untuk aplikasi pembelajaran, sistem kasir, dan website perusahaan.',
+            },
+            {
+                name: 'Adobe Photoshop',
+                note: 'Digunakan untuk membuat banner, konten media sosial, katalog produk, manipulasi gambar, dan berbagai kebutuhan desain promosi.',
+            },
+            {
+                name: 'Adobe Illustrator',
+                note: 'Membuat desain kemasan, branding, ilustrasi vector, logo, dan kebutuhan desain untuk media cetak maupun digital.',
+            },
+            {
+                name: 'Affinity Designer',
+                note: 'Mempelajari dan menggunakan alternatif Adobe Illustrator untuk desain vector dengan workflow yang lebih ringan dan efisien.',
+            },
+            {
+                name: 'Canva',
+                note: 'Membuat desain presentasi, media sosial, poster, dan materi pemasaran dengan proses yang cepat dan kolaboratif.',
+            },
+        ],
+    }
 ];
 
 const cta = [
     {
-        label: 'Download CV',
-        icon: DownloadIcon,
-        variant: 'default' as const,
-        href: '#',
-    },
-    {
         label: 'Email',
         icon: EnvelopeIcon,
         variant: 'outline' as const,
-        href: 'mailto:bagus@example.com',
+        href: 'mailto:bbagustrm@gmail.com',
     },
     {
         label: 'GitHub',
         icon: GithubLogoIcon,
         variant: 'outline' as const,
-        href: 'https://github.com',
+        href: 'https://github.com/bbagustrm',
     },
     {
         label: 'LinkedIn',
         icon: LinkedinLogoIcon,
         variant: 'outline' as const,
-        href: 'https://linkedin.com',
+        href: 'https://www.linkedin.com/in/bbagustrm/',
     },
 ];
 
@@ -116,7 +196,7 @@ export const CVPage = () => {
                                 <img
                                     src={profilePhoto}
                                     alt="Profile"
-                                    className="h-48 w-48 object-cover ring-2 ring-border"
+                                    className="h-36 w-36 object-cover ring-2 ring-border"
                                 />
                             </div>
 
