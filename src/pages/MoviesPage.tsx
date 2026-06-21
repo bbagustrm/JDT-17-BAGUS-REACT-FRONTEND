@@ -92,7 +92,7 @@ export const MoviesPage = () => {
                     </h1>
 
                     {/* Search */}
-                    <div className="relative flex-1 max-w-xs ml-auto">
+                    <div className="relative flex-1 sm:max-w-xs ml-auto">
                         <MagnifyingGlassIcon
                             size={16}
                             className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"

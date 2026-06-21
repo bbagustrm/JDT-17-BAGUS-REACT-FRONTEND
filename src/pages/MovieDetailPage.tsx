@@ -213,7 +213,7 @@ export const MovieDetailPage = () => {
             <Dialog open={trailerOpen} onOpenChange={setTrailerOpen}>
                   <DialogTrigger>
                   </DialogTrigger>
-                <DialogContent className="sm:max-w-[90vw] w-[50vw] p-0 overflow-hidden bg-black border-border">
+                <DialogContent className="max-w-[90vw] sm:max-w-[50vw] w-[90vw] sm:w-[50vw] p-0 overflow-hidden bg-black border-border">
                     <DialogTitle className="sr-only">
                         {detail?.title} — Trailer
                     </DialogTitle>
