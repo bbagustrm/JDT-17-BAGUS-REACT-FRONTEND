@@ -158,7 +158,7 @@ export const MovieDetailPage = () => {
                             </div>
 
                             {/* Meta */}
-                            <Card className="bg-muted/50">
+                            <Card className="bg-muted/50 p-0">
                                 <CardContent className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 text-sm">
                                     <span className="flex items-center gap-1.5">
                                         <StarIcon size={14} weight="fill" className="text-yellow-500" />
