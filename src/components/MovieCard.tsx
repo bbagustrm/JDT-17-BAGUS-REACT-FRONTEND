@@ -22,7 +22,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
 
     return (
         <Card
-            className="group cursor-pointer overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:shadow-xl"
+            className="group cursor-pointer overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:shadow-xl p-0"
             onClick={() => navigate(`/movies/${movie.id}`)}
         >
             <div className="relative aspect-[2/3] overflow-hidden">

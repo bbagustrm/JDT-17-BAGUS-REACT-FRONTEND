@@ -1,16 +1,26 @@
+import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeftIcon, StarIcon, ClockIcon, CalendarBlankIcon } from '@phosphor-icons/react'
+import {
+    ArrowLeftIcon,
+    StarIcon,
+    ClockIcon,
+    CalendarBlankIcon,
+    PlayIcon,
+} from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Separator } from '@/components/ui/separator'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import {Dialog, DialogContent, DialogTitle, DialogTrigger} from '@/components/ui/dialog'
+import { Card, CardContent } from '@/components/ui/card'
 import { useMovieDetail } from '@/hooks/useMovieDetail'
 import { TMDB_IMAGE_URL, BACKDROP_SIZE, POSTER_SIZE } from '@/constants/movies'
 
 export const MovieDetailPage = () => {
     const { id } = useParams<{ id: string }>()
     const navigate = useNavigate()
+    const [trailerOpen, setTrailerOpen] = useState(false)
     const { detail, trailer, isLoading, error } = useMovieDetail(Number(id))
 
     const backdropUrl = detail?.backdrop_path
@@ -22,7 +32,7 @@ export const MovieDetailPage = () => {
         : null
 
     const trailerUrl = trailer
-        ? `https://www.youtube.com/embed/${trailer.key}?autoplay=1&mute=1&controls=1&rel=0`
+        ? `https://www.youtube.com/embed/${trailer.key}?autoplay=1&controls=1&rel=0`
         : null
 
     const year = detail?.release_date?.split('-')[0] ?? '—'
@@ -32,112 +42,149 @@ export const MovieDetailPage = () => {
 
     if (error) {
         return (
-            <div className="p-6">
-                <Alert variant="destructive">
-                    <AlertDescription>{error}</AlertDescription>
-                </Alert>
-                <Button className="mt-4" onClick={() => navigate('/movies')}>
-                    Back to Movies
-                </Button>
+            <div className="min-h-screen bg-background flex items-center justify-center p-6">
+                <div className="w-full max-w-md space-y-4">
+                    <Alert variant="destructive">
+                        <AlertDescription>{error}</AlertDescription>
+                    </Alert>
+                    <Button className="w-full" onClick={() => navigate('/movies')}>
+                        <ArrowLeftIcon size={16} className="mr-2" />
+                        Back to Movies
+                    </Button>
+                </div>
             </div>
         )
     }
 
     return (
         <div className="min-h-screen bg-background">
-            {/* Hero: Trailer atau Backdrop */}
-            <div className="relative w-full aspect-video bg-black">
+
+            {/* ── Hero ── */}
+            <div className="relative w-full h-[60vh] bg-muted overflow-hidden">
                 {isLoading ? (
-                    <Skeleton className="w-full h-full" />
-                ) : trailerUrl ? (
-                    <iframe
-                        src={trailerUrl}
-                        title="Movie Trailer"
-                        className="w-full h-full"
-                        allow="autoplay; encrypted-media; picture-in-picture"
-                        allowFullScreen
-                    />
+                    <Skeleton className="w-full h-full rounded-none" />
                 ) : backdropUrl ? (
-                    <img
-                        src={backdropUrl}
-                        alt={detail?.title}
-                        className="w-full h-full object-cover"
-                    />
+                    <>
+                        <img
+                            src={backdropUrl}
+                            alt={detail?.title}
+                            className="w-full h-full object-cover"
+                        />
+                        {/* Overlay gradients pakai warna background shadcn */}
+                        <div className="absolute inset-0 bg-linear-to-t from-background via-background/40 to-transparent" />
+                        <div className="absolute inset-0 bg-linear-to-r from-background/50 via-transparent to-transparent" />
+                    </>
                 ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-muted text-muted-foreground text-sm">
-                        No video available
+                    <div className="w-full h-full flex items-center justify-center">
+                        <p className="text-muted-foreground text-sm">No image available</p>
                     </div>
                 )}
 
-                {/* Back button overlay */}
-                <Button
-                    variant="secondary"
-                    size="sm"
-                    className="absolute top-4 left-4 gap-2 bg-black/60 text-white hover:bg-black/80 backdrop-blur-sm border-0"
-                    onClick={() => navigate('/movies')}
-                >
-                    <ArrowLeftIcon size={16} />
-                    Back
-                </Button>
+                {/* Back button */}
+                <div className="absolute top-4 left-4 z-20">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        className="gap-2 bg-background/80 backdrop-blur-sm"
+                        onClick={() => navigate('/movies')}
+                    >
+                        <ArrowLeftIcon size={15} />
+                        Back
+                    </Button>
+                </div>
+
+                {/* Play button — hanya muncul kalau ada trailer */}
+                {!isLoading && trailer && (
+                    <button
+                        onClick={() => setTrailerOpen(true)}
+                        aria-label="Watch trailer"
+                        className="absolute inset-0 flex flex-col items-center justify-center gap-3 group cursor-pointer"
+                    >
+                        {/* Ring pulse */}
+                        <div className="relative flex items-center justify-center">
+                            <div className="relative flex items-center justify-center h-12 w-12 rounded-full bg-primary/25 shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:bg-primary/80">
+                                <PlayIcon
+                                    size={18}
+                                    weight="fill"
+                                    className="text-primary-foreground "
+                                />
+                            </div>
+                        </div>
+                        <span className="text-sm font-semibold tracking-widest uppercase text-foreground/80 group-hover:text-foreground transition-colors">
+                        </span>
+                    </button>
+                )}
             </div>
 
-            {/* Detail content */}
+            {/* ── Detail Content ── */}
             <div className="max-w-5xl mx-auto px-4 py-8">
                 {isLoading ? (
                     <div className="flex gap-6">
-                        <Skeleton className="w-40 h-60 rounded-lg shrink-0" />
+                        <Skeleton className="w-36 h-52 rounded-xl shrink-0 hidden md:block" />
                         <div className="flex-1 space-y-3">
-                            <Skeleton className="h-8 w-2/3" />
+                            <Skeleton className="h-9 w-2/3" />
                             <Skeleton className="h-4 w-1/3" />
-                            <Skeleton className="h-20 w-full" />
+                            <Skeleton className="h-5 w-1/2" />
+                            <Skeleton className="h-24 w-full" />
                         </div>
                     </div>
                 ) : detail ? (
-                    <div className="flex flex-col md:flex-row gap-6">
+                    <div className="flex flex-col md:flex-row gap-8">
+
                         {/* Poster */}
                         {posterUrl && (
-                            <img
-                                src={posterUrl}
-                                alt={detail.title}
-                                className="w-40 rounded-xl shadow-lg shrink-0 self-start hidden md:block"
-                            />
+                            <div className="shrink-0 hidden md:block">
+                                <img
+                                    src={posterUrl}
+                                    alt={detail.title}
+                                    className="w-36 rounded-xl shadow-md border border-border"
+                                />
+                            </div>
                         )}
 
                         {/* Info */}
-                        <div className="flex-1 space-y-4">
+                        <div className="flex-1 space-y-5">
+
+                            {/* Title & Tagline */}
                             <div>
-                                <h1 className="text-3xl font-bold">{detail.title}</h1>
+                                <h1 className="text-3xl font-bold tracking-tight text-foreground">
+                                    {detail.title}
+                                </h1>
                                 {detail.tagline && (
-                                    <p className="text-muted-foreground italic mt-1">
+                                    <p className="text-muted-foreground italic mt-1 text-sm">
                                         "{detail.tagline}"
                                     </p>
                                 )}
                             </div>
 
-                            {/* Meta badges */}
-                            <div className="flex flex-wrap items-center gap-3 text-sm">
-                <span className="flex items-center gap-1.5 text-muted-foreground">
-                  <StarIcon size={15} weight="fill" className="text-yellow-400" />
-                  <span className="font-semibold text-foreground">
-                    {detail.vote_average.toFixed(1)}
-                  </span>
-                  <span>({detail.vote_count.toLocaleString()} votes)</span>
-                </span>
+                            {/* Meta */}
+                            <Card className="bg-muted/50">
+                                <CardContent className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 text-sm">
+                                    <span className="flex items-center gap-1.5">
+                                        <StarIcon size={14} weight="fill" className="text-yellow-500" />
+                                        <span className="font-semibold text-foreground">
+                                            {detail.vote_average.toFixed(1)}
+                                        </span>
+                                        <span className="text-muted-foreground">
+                                            ({detail.vote_count.toLocaleString()} votes)
+                                        </span>
+                                    </span>
 
-                                <Separator orientation="vertical" className="h-4" />
+                                    <Separator orientation="vertical" className="h-4 hidden sm:block" />
 
-                                <span className="flex items-center gap-1.5 text-muted-foreground">
-                  <CalendarBlankIcon size={15} />
-                                    {year}
-                </span>
+                                    <span className="flex items-center gap-1.5 text-muted-foreground">
+                                        <CalendarBlankIcon size={14} />
+                                        <span className="text-foreground font-medium">{year}</span>
+                                    </span>
 
-                                <Separator orientation="vertical" className="h-4" />
+                                    <Separator orientation="vertical" className="h-4 hidden sm:block" />
 
-                                <span className="flex items-center gap-1.5 text-muted-foreground">
-                  <ClockIcon size={15} />
-                                    {runtime}
-                </span>
-                            </div>
+                                    <span className="flex items-center gap-1.5 text-muted-foreground">
+                                        <ClockIcon size={14} />
+                                        <span className="text-foreground font-medium">{runtime}</span>
+                                    </span>
+                                </CardContent>
+                            </Card>
 
                             {/* Genres */}
                             <div className="flex flex-wrap gap-2">
@@ -152,8 +199,8 @@ export const MovieDetailPage = () => {
 
                             {/* Overview */}
                             <div>
-                                <h2 className="font-semibold mb-2">Overview</h2>
-                                <p className="text-muted-foreground leading-relaxed">
+                                <h2 className="font-semibold text-foreground mb-2">Overview</h2>
+                                <p className="text-muted-foreground leading-relaxed text-sm">
                                     {detail.overview}
                                 </p>
                             </div>
@@ -161,6 +208,28 @@ export const MovieDetailPage = () => {
                     </div>
                 ) : null}
             </div>
+
+            {/* ── Trailer Dialog ── */}
+            <Dialog open={trailerOpen} onOpenChange={setTrailerOpen}>
+                  <DialogTrigger>
+                  </DialogTrigger>
+                <DialogContent className="sm:max-w-[50vw] w-[50vw] p-0 overflow-hidden bg-black border-border">
+                    <DialogTitle className="sr-only">
+                        {detail?.title} — Trailer
+                    </DialogTitle>
+                    {trailerOpen && trailerUrl && (
+                        <div className="aspect-video w-full">
+                            <iframe
+                                src={trailerUrl}
+                                title={`${detail?.title} trailer`}
+                                className="w-full h-full"
+                                allow="autoplay; encrypted-media; picture-in-picture"
+                                allowFullScreen
+                            />
+                        </div>
+                    )}
+                </DialogContent>
+            </Dialog>
         </div>
     )
 }
