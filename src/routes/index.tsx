@@ -1,30 +1,36 @@
-import { createBrowserRouter } from "react-router-dom";
-import { ROUTES } from "@/constants/routes";
-import { HomePage } from "@/pages/HomePage";
+import {createBrowserRouter} from "react-router-dom";
+import {ROUTES} from "@/constants/routes";
+import {HomePage} from "@/pages/HomePage";
 import {CVPage} from "@/pages/CVPage.tsx";
 import {MoviesPage} from "@/pages/MoviesPage.tsx";
 import TodosPage from "@/pages/TodosPage.tsx";
 import CreateTodoPage from "@/pages/CreateTodoPage.tsx";
+import {MovieDetailPage} from "@/pages/MovieDetailPage.tsx";
 
 export const router = createBrowserRouter([
     {
         path: ROUTES.HOME,
-        element: <HomePage />,
+        element: <HomePage/>,
     },
     {
         path: ROUTES.CV,
-        element: <CVPage />,
+        element: <CVPage/>,
     },
     {
         path: ROUTES.MOVIES,
-        element: <MoviesPage />,
+        element: <MoviesPage/>,
     },
     {
+        path: ROUTES.MOVIES_DETAIL,
+        element: <MovieDetailPage/>
+    },
+
+    {
         path: ROUTES.TODOS,
-        element: <TodosPage />,
+        element: <TodosPage/>,
     },
     {
         path: ROUTES.TODOS_CREATE,
-        element: <CreateTodoPage />
+        element: <CreateTodoPage/>
     }
 ]);
