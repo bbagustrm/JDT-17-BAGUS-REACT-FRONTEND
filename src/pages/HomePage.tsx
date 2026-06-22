@@ -58,14 +58,13 @@ export function HomePage() {
                     </Button>
                 ))}
 
-                {/* Logout — hanya muncul kalau sudah login */}
                 {isAuthenticated && (
                     <Button
                         variant="ghost"
                         className="flex items-center gap-3 h-14 text-base text-destructive hover:text-destructive hover:bg-destructive/10"
                         onClick={handleLogout}
                     >
-                        <SignOutIcon size={36} weight="duotone" />
+                        <SignOutIcon size={36}/>
                         <div className="text-left">
                             <div className="font-semibold">Logout</div>
                         </div>

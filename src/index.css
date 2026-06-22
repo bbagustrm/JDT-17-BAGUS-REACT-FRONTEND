@@ -127,4 +127,12 @@
   html {
     @apply font-mono;
     }
+    Homehtml, body {
+        overflow: hidden;
+        height: 100%;
+    }
+
+    #root {
+        height: 100%;
+    }
 }
