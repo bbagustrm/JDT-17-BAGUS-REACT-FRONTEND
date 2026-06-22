@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {ListIcon, XIcon, MagnifyingGlassIcon} from '@phosphor-icons/react'
+import {ListIcon, XIcon, MagnifyingGlassIcon, SignOutIcon} from '@phosphor-icons/react'
 import {Input} from '@/components/ui/input'
 import {Button} from '@/components/ui/button'
 import {Skeleton} from '@/components/ui/skeleton'
@@ -9,13 +9,13 @@ import {MovieCard} from '@/components/MovieCard'
 import {useMovies} from '@/hooks/useMovies'
 import {useDebounce} from '@/hooks/useDebounce'
 import {MOVIE_CATEGORIES} from '@/constants/movies'
-import type {MovieCategory} from '@/types/movie'
+import type {MovieCategory} from '@/types/movie.types.ts'
 import {cn} from '@/lib/utils'
+import { useAuth } from '@/context/AuthContext'
+import { ROUTES } from '@/constants/routes'
+import {useNavigate} from "react-router-dom";
 
-const SidebarContent = ({
-                            active,
-                            onSelect,
-                        }: {
+const SidebarContent = ({active, onSelect}: {
     active: MovieCategory
     onSelect: (cat: MovieCategory) => void
 }) => (
@@ -48,6 +48,14 @@ export const MoviesPage = () => {
 
     const debouncedSearch = useDebounce(searchInput, 500)
     const {movies, isLoading, error} = useMovies(category, debouncedSearch)
+    const { logout } = useAuth()
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        logout()
+        navigate(ROUTES.HOME)
+    }
+
 
     const activeLabel =
         MOVIE_CATEGORIES.find(c => c.key === category)?.label ?? 'Movies'
@@ -65,7 +73,23 @@ export const MoviesPage = () => {
                 <div className="p-3.5 border-b">
                     <h2 className="font-bold text-lg">🎬 JDT Movies</h2>
                 </div>
-                <SidebarContent active={category} onSelect={handleCategorySelect}/>
+
+                {/* Categories — flex-1 supaya logout terdorong ke bawah */}
+                <div className="flex-1">
+                    <SidebarContent active={category} onSelect={handleCategorySelect} />
+                </div>
+
+                {/* Logout di bawah sidebar */}
+                <div className="p-3 border-t">
+                    <Button
+                        variant="ghost"
+                        className="w-full justify-start gap-3 text-destructive hover:text-destructive hover:bg-destructive/10"
+                        onClick={handleLogout}
+                    >
+                        <SignOutIcon size={18} />
+                        Logout
+                    </Button>
+                </div>
             </aside>
 
             {/* Main content */}
@@ -127,7 +151,7 @@ export const MoviesPage = () => {
                         {isLoading
                             ? Array.from({length: 10}).map((_, i) => (
                                 <div key={i} className="flex flex-col gap-2">
-                                    <Skeleton className="aspect-[2/3] w-full rounded-lg"/>
+                                    <Skeleton className="aspect-2/3 w-full rounded-lg"/>
                                     <Skeleton className="h-4 w-3/4"/>
                                     <Skeleton className="h-3 w-1/4"/>
                                 </div>

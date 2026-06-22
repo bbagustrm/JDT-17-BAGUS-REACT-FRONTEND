@@ -13,40 +13,57 @@ import {
 } from "@/components/ui/dialog";
 import { useTodo } from "@/hooks/useTodo";
 import { ROUTES } from "@/constants/routes";
-import type { Todo } from "@/types/todo";
-import {ArrowLeftIcon} from "@phosphor-icons/react";
+import type { TodoTypes } from "@/types/todo.types.ts";
+import { useAuth } from '@/context/AuthContext';
+import { SignOutIcon, ArrowLeftIcon } from '@phosphor-icons/react';
 
 export default function TodosPage() {
     const { todos, toggleTodo, deleteTodo } = useTodo();
     const [deleteId, setDeleteId] = useState<string | null>(null);
     const navigate = useNavigate();
+    const { logout } = useAuth()
 
-    const handleToggle = (todo: Todo) => {
+    const handleLogout = () => {
+        logout()
+        navigate(ROUTES.HOME)
+    }
+
+    const handleToggle = (todo: TodoTypes) => {
         toggleTodo(todo.id);
-        toast(todo.completed ? "Todo marked as active!" : "Todo completed!");
+        toast(todo.completed ? "TodoTypes marked as active!" : "TodoTypes completed!");
     };
 
     const handleDeleteConfirm = () => {
         if (deleteId) {
             deleteTodo(deleteId);
             setDeleteId(null);
-            toast("Todo deleted.");
+            toast("TodoTypes deleted.");
         }
     };
 
     return (
         <div className="min-h-screen bg-background">
             <div className="max-w-2xl mx-auto px-4 py-10">
-                {/* Back */}
-                <div className="w-full flex justify-start">
+                {/* Back + Logout */}
+                <div className="w-full flex items-center justify-between mb-8">
                     <Button
                         variant="ghost"
                         size="sm"
-                        className="mb-8 gap-2 text-muted-foreground hover:text-foreground"
+                        className="gap-2 text-muted-foreground hover:text-foreground"
                         onClick={() => navigate('/')}
                     >
-                        <ArrowLeftIcon className="h-4 w-4"/>
+                        <ArrowLeftIcon className="h-4 w-4" />
                         Kembali
+                    </Button>
+
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="gap-2 text-destructive hover:text-destructive hover:bg-destructive/10"
+                        onClick={handleLogout}
+                    >
+                        <SignOutIcon size={16} />
+                        Logout
                     </Button>
                 </div>
                 <div className="flex justify-between items-center mb-8">

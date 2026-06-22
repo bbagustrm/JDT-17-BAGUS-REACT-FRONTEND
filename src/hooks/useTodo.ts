@@ -1,11 +1,11 @@
 import { useLocalStorage } from "./useLocalStorage";
-import type { Todo } from "@/types/todo";
+import type { TodoTypes } from "@/types/todo.types.ts";
 
 export function useTodo() {
-    const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
+    const [todos, setTodos] = useLocalStorage<TodoTypes[]>("todos", []);
 
     const createTodo = (title: string) => {
-        const newTodo: Todo = {
+        const newTodo: TodoTypes = {
             id: crypto.randomUUID(),
             title,
             completed: false,

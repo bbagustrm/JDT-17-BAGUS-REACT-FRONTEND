@@ -3,10 +3,10 @@ import { StarIcon } from '@phosphor-icons/react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { TMDB_IMAGE_URL, POSTER_SIZE } from '@/constants/movies'
-import type { Movie } from '@/types/movie'
+import type { MovieTypes } from '@/types/movie.types.ts'
 
 interface MovieCardProps {
-    movie: Movie
+    movie: MovieTypes
 }
 
 const PLACEHOLDER = 'https://placehold.co/342x513?text=No+Image'

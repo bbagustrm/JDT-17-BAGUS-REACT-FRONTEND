@@ -1,10 +1,17 @@
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
-import { FileTextIcon, CheckSquareIcon, FilmSlateIcon } from '@phosphor-icons/react'
+import { FileTextIcon, CheckSquareIcon, FilmSlateIcon, SignOutIcon } from '@phosphor-icons/react'
 import { ROUTES } from '@/constants/routes'
+import { useAuth } from '@/context/AuthContext'
 
 export function HomePage() {
     const navigate = useNavigate()
+    const { isAuthenticated, logout, user } = useAuth()
+
+    const handleLogout = () => {
+        logout()
+        navigate(ROUTES.HOME)
+    }
 
     const pages = [
         {
@@ -27,7 +34,14 @@ export function HomePage() {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen gap-6">
             <h1 className="text-4xl font-bold">JDT-17 Bagus Tri</h1>
-            <p className="text-muted-foreground">Pilih halaman yang ingin dikunjungi</p>
+
+            {isAuthenticated ? (
+                <p className="text-muted-foreground text-sm">
+                    Halo, <span className="font-semibold text-foreground">{user?.firstName} {user?.lastName}</span>
+                </p>
+            ) : (
+                <p className="text-muted-foreground">Pilih halaman yang ingin dikunjungi</p>
+            )}
 
             <div className="flex flex-col gap-3 w-full max-w-xs">
                 {pages.map((page) => (
@@ -43,6 +57,20 @@ export function HomePage() {
                         </div>
                     </Button>
                 ))}
+
+                {/* Logout — hanya muncul kalau sudah login */}
+                {isAuthenticated && (
+                    <Button
+                        variant="ghost"
+                        className="flex items-center gap-3 h-14 text-base text-destructive hover:text-destructive hover:bg-destructive/10"
+                        onClick={handleLogout}
+                    >
+                        <SignOutIcon size={36} weight="duotone" />
+                        <div className="text-left">
+                            <div className="font-semibold">Logout</div>
+                        </div>
+                    </Button>
+                )}
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-import type { MovieCategory } from '@/types/movie'
+import type { MovieCategory } from '@/types/movie.types.ts'
 import {
     FilmSlateIcon,
     FireIcon,

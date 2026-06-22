@@ -6,6 +6,8 @@ import {MoviesPage} from "@/pages/MoviesPage.tsx";
 import TodosPage from "@/pages/TodosPage.tsx";
 import CreateTodoPage from "@/pages/CreateTodoPage.tsx";
 import {MovieDetailPage} from "@/pages/MovieDetailPage.tsx";
+import {LoginPage} from "@/pages/LoginPage.tsx";
+import {ProtectedRoute} from "@/components/ProtectedRoute.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -13,24 +15,26 @@ export const router = createBrowserRouter([
         element: <HomePage/>,
     },
     {
+        path: ROUTES.LOGIN,
+        element: <LoginPage/>},
+    {
         path: ROUTES.CV,
-        element: <CVPage/>,
+        element: <ProtectedRoute><CVPage /></ProtectedRoute>,
     },
     {
         path: ROUTES.MOVIES,
-        element: <MoviesPage/>,
+        element: <ProtectedRoute><MoviesPage /></ProtectedRoute>,
     },
     {
         path: ROUTES.MOVIES_DETAIL,
-        element: <MovieDetailPage/>
+        element: <ProtectedRoute><MovieDetailPage /></ProtectedRoute>,
     },
-
     {
         path: ROUTES.TODOS,
-        element: <TodosPage/>,
+        element: <ProtectedRoute><TodosPage /></ProtectedRoute>,
     },
     {
         path: ROUTES.TODOS_CREATE,
-        element: <CreateTodoPage/>
-    }
+        element: <ProtectedRoute><CreateTodoPage /></ProtectedRoute>,
+    },
 ]);

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { movieService } from '@/services/movies.service'
-import type { MovieDetail, MovieVideo } from '@/types/movie'
+import type { MovieDetail, MovieVideo } from '@/types/movie.types.ts'
 
 interface UseMovieDetailResult {
     detail: MovieDetail | null

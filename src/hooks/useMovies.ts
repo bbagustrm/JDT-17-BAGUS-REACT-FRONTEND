@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { movieService } from '@/services/movies.service'
-import type { Movie, MovieCategory } from '@/types/movie'
+import type { MovieTypes, MovieCategory } from '@/types/movie.types.ts'
 
 interface UseMoviesResult {
-    movies: Movie[]
+    movies: MovieTypes[]
     isLoading: boolean
     error: string | null
     totalPages: number
@@ -15,7 +15,7 @@ export const useMovies = (
     category: MovieCategory,
     searchQuery: string
 ): UseMoviesResult => {
-    const [movies, setMovies] = useState<Movie[]>([])
+    const [movies, setMovies] = useState<MovieTypes[]>([])
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [currentPage, setCurrentPage] = useState(1)

@@ -4,7 +4,7 @@ import type {
     MovieDetail,
     MovieVideoResponse,
     MovieCategory,
-} from '@/types/movie'
+} from '@/types/movie.types.ts'
 
 const ACCESS_TOKEN = import.meta.env.VITE_TMDB_ACCESS_TOKEN as string
 

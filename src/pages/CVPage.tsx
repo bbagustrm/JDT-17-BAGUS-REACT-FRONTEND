@@ -9,10 +9,12 @@ import {
     CircleIcon,
     EnvelopeIcon,
     GithubLogoIcon,
-    LinkedinLogoIcon
+    LinkedinLogoIcon,
+    SignOutIcon
 } from '@phosphor-icons/react';
 import profilePhoto from '@/assets/profile.webp';
-
+import { useAuth } from '@/context/AuthContext'
+import {ROUTES} from "@/constants/routes.ts";
 
 const languages = [
     {name: 'Indonesia', level: 'Native'},
@@ -168,25 +170,40 @@ const cta = [
 export const CVPage = () => {
     const navigate = useNavigate();
     const [activeSkill, setActiveSkill] = useState(skills[0].id);
+    const { logout } = useAuth()
+
+    const handleLogout = () => {
+        logout()
+        navigate(ROUTES.HOME)
+    }
 
     const activeSkillData = skills.find((s) => s.id === activeSkill)!;
 
     return (
         <div className="min-h-screen bg-background">
             <div className="container mx-auto max-w-4xl px-4 py-10">
-                {/* Back */}
-                <div className="w-full flex justify-start">
+                {/* Back + Logout */}
+                <div className="w-full flex items-center justify-between mb-8">
                     <Button
                         variant="ghost"
                         size="sm"
-                        className="mb-8 gap-2 text-muted-foreground hover:text-foreground"
+                        className="gap-2 text-muted-foreground hover:text-foreground"
                         onClick={() => navigate('/')}
                     >
-                        <ArrowLeftIcon className="h-4 w-4"/>
+                        <ArrowLeftIcon className="h-4 w-4" />
                         Kembali
                     </Button>
-                </div>
 
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="gap-2 text-destructive hover:text-destructive hover:bg-destructive/10"
+                        onClick={handleLogout}
+                    >
+                        <SignOutIcon size={16} />
+                        Logout
+                    </Button>
+                </div>
                 {/* ── HERO ── */}
                 <Card className="mb-6 overflow-hidden">
                     <CardContent className="p-0">
